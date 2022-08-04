@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DoDoneApp</title>
+
+{% extends 'todo_app/base.html' %}
+{% block content %}
+</head>
+<body>
+<div align="center">
+    <h1>Welcome to DoDoneApp!</h1>
+    {% if user.is_authenticated %}
+    <p><h3>Hello, {{ user.username }}!</h3></p>
+    <hr>
+    <p><h3><a href="{% url 'tasks' %}">Go to tasks</a></h3></p>
+    <hr>
+
+    {% else %}
+    <p><h3><a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Registrate</a></h3></p>
+    {% endif %}
+</div>
+{% endblock content %}
+</body>
+</html>

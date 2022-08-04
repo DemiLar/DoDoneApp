@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+
+{% extends 'todo_app/base.html' %}
+{% block content %}
+</head>
+<body>
+<a href="{% url 'tasks' %}"> Go back</a>
+<h1>Profile detail:</h1>
+    <p>Username: {{profile.username}}</p>
+    <p>First name: {{profile.first_name}}</p>
+    <p>Last name: {{profile.last_name}}</p>
+    <p>Email: {{profile.email}}</p>
+    <p>Work position: {{profile.work_position}}</p>
+<a href="{% url 'profile_update' profile.id %}">Edit</a>
+</body>
+</html>
+{% endblock content %}
