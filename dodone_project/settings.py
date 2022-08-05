@@ -155,8 +155,11 @@ REST_FRAMEWORK = {
 }
 
 AUTH_USER_MODEL = 'account.CustomizeUser'
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
 MEDIA_URL = '/images/'
+
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'

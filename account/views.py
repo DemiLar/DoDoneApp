@@ -17,6 +17,7 @@ from django.template.loader import render_to_string
 from .forms import UserCreateForm, UserUpdateForm
 from .models import CustomizeUser
 from .tokens import account_activation_token
+from .tasks import user_created
 
 
 class RegisterView(View):
@@ -64,6 +65,7 @@ class ActivateAccount(View):
         if user is not None and account_activation_token.check_token(user, token):
             user.is_active = True
             user.email_confirmed = True
+            user_created.delay(user.id)
             user.save()
             login(request, user)
             messages.success(request, ('Your account have been confirmed.'))
