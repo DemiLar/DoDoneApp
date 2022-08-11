@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Statistic</title>
+
+{% extends 'task_application/base.html' %}
+{% block content %}
+</head>
+<body>
+<h1 align="center">Statistic</h1>
+<h3>You have {{ num_tasks }} tasks</h3>
+<h3>In 'todo' status: {{ num_tasks_todo }} tasks</h3>
+<h3>In 'in progress' status: {{ num_tasks_in_progress }} tasks</h3>
+<h3>In 'blocked' status: {{ num_tasks_blocked }} tasks</h3>
+<h3>In 'finished' status: {{ num_tasks_finished }} tasks</h3>
+<h3>Average task execution time: {{ average_duration.avg_time }}</h3>
+<a href="{% url 'tasks' %}"> Go back</a>
+</body>
+</html>
+{% endblock content %}

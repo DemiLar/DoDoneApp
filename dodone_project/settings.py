@@ -33,7 +33,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    #'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -42,13 +42,17 @@ INSTALLED_APPS = [
 
     'django_filters',
 
-    'todo_app.apps.TodoAppConfig',
+    'task_application.apps.TaskApplicationConfig',
     'account.apps.AccountConfig',
 
     'rest_framework',
     'rest_framework.authtoken',
 
     'todo_app_drf.apps.TodoAppDrfConfig',
+    'account_drf.apps.AccountDrfConfig',
+
+    'admin_volt.apps.AdminVoltConfig',
+    'django.contrib.admin',
 
 ]
 
@@ -131,6 +135,7 @@ LOGIN_URL = 'login'
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

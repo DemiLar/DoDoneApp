@@ -1,4 +1,4 @@
-from todo_app.models import Task
+from task_application.models import Task
 from rest_framework import serializers
 
 

@@ -9,6 +9,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
+from rest_framework.authtoken.models import Token
 
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -72,7 +73,7 @@ class ActivateAccount(View):
             return redirect('login')
         else:
             messages.warning(request, ('The confirmation link was invalid, possibly because it has already been used.'))
-            return redirect('register')
+            return redirect('login')
 
 
 class LoginFormView(FormView):
@@ -97,3 +98,10 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     form_class = UserUpdateForm
     template_name = 'account/profile_update.html'
     success_url = reverse_lazy('tasks')
+
+
+def get_token(request):
+    user = CustomizeUser.objects.filter(id=request.user.id)
+    token = Token.objects.create(user=user)
+
+    return(request, 'account/get_token.html', {'token': token})

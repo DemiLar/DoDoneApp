@@ -1,4 +1,4 @@
-from datetime import date
+from django.utils import timezone
 
 from django.db import models
 from django.conf import settings
@@ -22,8 +22,9 @@ class Task(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     content = models.TextField(blank=True)
-    created = models.DateField(auto_now_add=True)
-    due_date = models.DateField(default=date.today().strftime('%B %d, %Y'))
+    created = models.DateTimeField(default=timezone.now, blank=True, null=True)
+    due_date = models.DateTimeField(default=timezone.now, blank=True, null=True)
+    done_date = models.DateTimeField(blank=True, null=True)
     status = models.CharField(choices=CHOICE_STATUS, max_length=15, default='todo')
     priority = models.CharField(choices=CHOICE_PRIORITY, max_length=7, default='medium')
     importance = models.BooleanField(default=False)
@@ -33,4 +34,3 @@ class Task(models.Model):
 
     class Meta:
         verbose_name = 'Task'
-

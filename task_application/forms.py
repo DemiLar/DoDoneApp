@@ -1,5 +1,5 @@
 from django import forms
-from todo_app.models import Task
+from task_application.models import Task
 
 
 class TaskCreateForm(forms.ModelForm):

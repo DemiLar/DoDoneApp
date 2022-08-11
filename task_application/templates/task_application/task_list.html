@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tasks</title>
+
+{% extends 'task_application/base.html' %}
+{% block content %}
+</head>
+<body>
+{% if user.is_authenticated %}
+    <h3 align="right"><a href="{% url 'profile' user.pk %}">My profile</a>
+        <a href="{% url 'logout' %}">Logout</a></h3>
+{% endif %}
+<hr>
+<h1>My todo list</h1>
+<h3 align="center">
+    <a href="{% url 'create_task' %}">Add task |</a>
+    <a href="{% url 'statistic_list' %}"> Statistic</a>
+</h3>
+<table>
+  <tr>
+    <th>Item</th>
+    <th></th>
+  </tr>
+  <tr>
+      <th>Title</th>
+      <th>Content</th>
+      <th>Deadline</th>
+  </tr>
+  {% for task in tasks %}
+    <tr>
+      <th>{{task.title}}</th>
+      <th>| {{task.content|truncatewords:3}}</th>
+      <th>| {{task.due_date}}</th>
+      {% if task.importance %}
+        <th>| &#9733</th>
+      {% endif %}
+      <th>| <a href="{% url 'task' task.id %}">View</a></th>
+      <th>| <a href="{% url 'task_update' task.id %}">Edit</a></th>
+      <th>| <a href="{% url 'task_delete' task.id %} ">Delete</a></th>
+    </tr>
+  {% empty %}
+    <h3>No items in list</h3>
+  {% endfor %}
+</table>
+<hr>
+    {% include "task_application/pagination.html" with page=tasks %}
+{% endblock content %}
+</body>
+</html>

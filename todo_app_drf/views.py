@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.viewsets import ModelViewSet
@@ -5,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 
-from todo_app.models import Task
+from task_application.models import Task
 from .serializers import TaskSerializer
 
 
@@ -48,6 +50,7 @@ class MyTasksViewSet(ModelViewSet):
     def mark_as_finished(self, request, pk=None):
         task = self.get_object()
         task.status = 'finished'
+        task.done_date = datetime.now()
         if task.user == self.request.user:
             task.save()
         serializer = self.get_serializer(task)

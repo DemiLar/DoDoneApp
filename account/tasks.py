@@ -7,9 +7,9 @@ from django.core.mail import send_mail
 def user_created(user_id):
 
     user = CustomizeUser.objects.get(id=user_id)
-    subject = 'User nr. {}'.format(user_id)
-    message = 'Dear {},\n\nYou have successfully create an account.\
-                Your acc id is {}.'.format(user.first_name, user.id)
+    subject = f'Successful creation'
+    message = f'Dear {user.first_name},\n\nYou have successfully create an account.\
+                Your acc id is {user.id}.'
     mail_sent = send_mail(subject,
                           message,
                           'crazydemon713@gmail.com',

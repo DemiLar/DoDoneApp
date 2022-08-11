@@ -17,15 +17,16 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include, re_path
 
+from account_drf.urls import my_profile_router
 from todo_app_drf.urls import my_task_router
 from django.views.static import serve
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('todo_app.urls')),
+    path('', include('task_application.urls')),
     path('account/', include('account.urls')),
     re_path(r'^img/(.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     path('my_tasks/', include(my_task_router.urls)),
-    #path('my_profile/', include(my_profile_router.urls)),
+    path('my_profile/', include(my_profile_router.urls)),
 ]
 
