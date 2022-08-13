@@ -14,7 +14,7 @@ from .serializers import TaskSerializer
 class MyTasksViewSet(ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['status']
     search_fields = ['title']
@@ -31,8 +31,8 @@ class MyTasksViewSet(ModelViewSet):
     @action(methods=['post'], detail=True)
     def mark_as_in_progress(self, request, pk=None):
         task = self.get_object()
-        task.status = 'in_progress'
-        if task.user == self.request.user:
+        if task.status == 'todo':
+            task.status = 'in_progress'
             task.save()
         serializer = self.get_serializer(task)
         return Response(serializer.data)
@@ -40,8 +40,8 @@ class MyTasksViewSet(ModelViewSet):
     @action(methods=['post'], detail=True)
     def mark_as_blocked(self, request, pk=None):
         task = self.get_object()
-        task.status = 'blocked'
-        if task.user == self.request.user:
+        if task.status == 'todo' or 'in_progress':
+            task.status = 'blocked'
             task.save()
         serializer = self.get_serializer(task)
         return Response(serializer.data)
@@ -49,9 +49,9 @@ class MyTasksViewSet(ModelViewSet):
     @action(methods=['post'], detail=True)
     def mark_as_finished(self, request, pk=None):
         task = self.get_object()
-        task.status = 'finished'
-        task.done_date = datetime.now()
-        if task.user == self.request.user:
+        if task.status == 'in_progress':
+            task.status = 'finished'
+            task.done_date = datetime.now()
             task.save()
         serializer = self.get_serializer(task)
         return Response(serializer.data)

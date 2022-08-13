@@ -33,7 +33,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # Application definition
 
 INSTALLED_APPS = [
-    #'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -42,17 +41,19 @@ INSTALLED_APPS = [
 
     'django_filters',
 
-    'task_application.apps.TaskApplicationConfig',
-    'account.apps.AccountConfig',
-
     'rest_framework',
     'rest_framework.authtoken',
 
-    'todo_app_drf.apps.TodoAppDrfConfig',
-    'account_drf.apps.AccountDrfConfig',
+    'task_application',
+    'account',
+
+    'todo_app_drf',
+    'account_drf',
 
     'admin_volt.apps.AdminVoltConfig',
     'django.contrib.admin',
+
+    'coverage',
 
 ]
 
@@ -151,9 +152,9 @@ EMAIL_HOST_PASSWORD = 'bbvlnijsrkuzgbtp'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 REST_FRAMEWORK = {
-    #'DEFAULT_AUTHENTICATION_CLASSES': [
-        #'rest_framework.authentication.TokenAuthentication',
-    #],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 5
 

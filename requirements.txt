@@ -10,7 +10,7 @@ click-repl==0.2.0
 colorama==0.4.5
 Deprecated==1.2.13
 Django==4.1
-django-admin-volt==0.0.5
+#django-admin-volt==0.0.5
 django-filter==22.1
 django-utils-six==2.0
 djangorestframework==3.13.1

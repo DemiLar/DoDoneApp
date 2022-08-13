@@ -2,7 +2,7 @@ from account.models import CustomizeUser
 from task_application.models import Task
 from dodone_project.celery import app
 from django.core.mail import send_mail
-from datetime import timedelta, datetime, date
+from datetime import timedelta, date
 
 
 @app.task
@@ -10,9 +10,12 @@ def send_task_with_tomorrow_deadline(user_id):
 
     user = CustomizeUser.objects.get(id=user_id)
     try:
-        task = Task.objects.filter(user_id=user).filter(due_date=datetime.now() + timedelta(days=1))
+        tasks = Task.objects.filter(user_id=user.id).filter(status='finished'). \
+            filter(done_date=last_monday + one_week)
+        task_list = [task.title for task in tasks]
+
         subject = f'DoDone Reminder'
-        message = f'Good morning, {user.first_name}!\n\nThe task {task.title} has deadline tomorrow.\nHurry up!'
+        message = f'Good morning, {user.first_name}!\n\nThe task {task_list} has deadline tomorrow.\nHurry up!'
         mail_sent = send_mail(subject,
                               message,
                               'crazydemon713@gmail.com',
@@ -38,10 +41,12 @@ def send_completed_tasks(user_id):
 
     user = CustomizeUser.objects.get(id=user_id)
     try:
-        task = Task.objects.filter(user_id=user).filter(status='finished').\
+        tasks = Task.objects.filter(user_id=user.id).filter(status='finished').\
             filter(done_date=last_monday + one_week)
+        task_list = [task.title for task in tasks]
+
         subject = f'DoDone Reminder'
-        message = f'Good morning, {user.first_name}!\n\nCompleted tasks this week: {task.title}\n\nGood job!'
+        message = f'Good morning, {user.first_name}!\n\nCompleted tasks this week: {task_list}\n\nGood job!'
         mail_sent = send_mail(subject,
                               message,
                               'crazydemon713@gmail.com',

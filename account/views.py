@@ -92,16 +92,15 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
     context_object_name = 'profile'
     template_name = 'account/profile.html'
 
+    def get_object(self, queryset=None):
+        return self.model.objects.get(pk=self.request.user.pk)
+
 
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     model = CustomizeUser
     form_class = UserUpdateForm
     template_name = 'account/profile_update.html'
-    success_url = reverse_lazy('tasks')
+    success_url = reverse_lazy('profile')
 
-
-def get_token(request):
-    user = CustomizeUser.objects.filter(id=request.user.id)
-    token = Token.objects.create(user=user)
-
-    return(request, 'account/get_token.html', {'token': token})
+    def get_object(self, queryset=None):
+        return self.model.objects.get(pk=self.request.user.pk)

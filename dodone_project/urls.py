@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include, re_path
+from rest_framework.authtoken.views import obtain_auth_token
 
 from account_drf.urls import my_profile_router
 from todo_app_drf.urls import my_task_router
@@ -26,6 +27,7 @@ urlpatterns = [
     path('', include('task_application.urls')),
     path('account/', include('account.urls')),
     re_path(r'^img/(.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    path('login/', obtain_auth_token, name='obtain-auth-token'),
     path('my_tasks/', include(my_task_router.urls)),
     path('my_profile/', include(my_profile_router.urls)),
 ]

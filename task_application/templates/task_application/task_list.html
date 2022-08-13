@@ -9,7 +9,7 @@
 </head>
 <body>
 {% if user.is_authenticated %}
-    <h3 align="right"><a href="{% url 'profile' user.pk %}">My profile</a>
+    <h3 align="right"><a href="{% url 'profile' %}">My profile</a>
         <a href="{% url 'logout' %}">Logout</a></h3>
 {% endif %}
 <hr>
