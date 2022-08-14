@@ -52,6 +52,10 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
     model = Task
     context_object_name = 'task'
 
+    def get_queryset(self):
+        user = self.request.user
+        return self.model.objects.filter(user_id=user.id)
+
 
 class TaskCreateView(LoginRequiredMixin, CreateView):
     model = Task
@@ -68,9 +72,17 @@ class TaskUpdateView(LoginRequiredMixin, UpdateView):
     form_class = TaskCreateForm
     success_url = reverse_lazy('tasks')
 
+    def get_queryset(self):
+        user = self.request.user
+        return self.model.objects.filter(user_id=user.id)
+
 
 class TaskDeleteView(LoginRequiredMixin, DeleteView):
     model = Task
     context_object_name = 'task'
     success_url = reverse_lazy('tasks')
+
+    def get_queryset(self):
+        user = self.request.user
+        return self.model.objects.filter(user_id=user.id)
 

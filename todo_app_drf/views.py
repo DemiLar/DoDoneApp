@@ -31,8 +31,8 @@ class MyTasksViewSet(ModelViewSet):
     @action(methods=['post'], detail=True)
     def mark_as_in_progress(self, request, pk=None):
         task = self.get_object()
-        if task.status == 'todo':
-            task.status = 'in_progress'
+        if task.status == 'ToDo':
+            task.status = 'In_progress'
             task.save()
         serializer = self.get_serializer(task)
         return Response(serializer.data)
@@ -40,8 +40,8 @@ class MyTasksViewSet(ModelViewSet):
     @action(methods=['post'], detail=True)
     def mark_as_blocked(self, request, pk=None):
         task = self.get_object()
-        if task.status == 'todo' or 'in_progress':
-            task.status = 'blocked'
+        if task.status == 'ToDo' or 'In_progress':
+            task.status = 'Blocked'
             task.save()
         serializer = self.get_serializer(task)
         return Response(serializer.data)
@@ -49,8 +49,8 @@ class MyTasksViewSet(ModelViewSet):
     @action(methods=['post'], detail=True)
     def mark_as_finished(self, request, pk=None):
         task = self.get_object()
-        if task.status == 'in_progress':
-            task.status = 'finished'
+        if task.status == 'In_progress':
+            task.status = 'Finished'
             task.done_date = datetime.now()
             task.save()
         serializer = self.get_serializer(task)

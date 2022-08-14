@@ -28,7 +28,7 @@ urlpatterns = [
     path('account/', include('account.urls')),
     re_path(r'^img/(.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     path('login/', obtain_auth_token, name='obtain-auth-token'),
-    path('my_tasks/', include(my_task_router.urls)),
-    path('my_profile/', include(my_profile_router.urls)),
+    path('my-tasks/', include(my_task_router.urls), name='my_tasks'),
+    path('my-profile/', include(my_profile_router.urls), name='my_profile'),
 ]
 

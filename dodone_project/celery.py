@@ -17,12 +17,11 @@ app.conf.beat_schedule = {
         'task': 'task_application.tasks.send_task_with_tomorrow_deadline',
         'schedule': crontab(minute=0, hour=8),
     },
-}
-
-app.conf.beat_schedule = {
     'send-reminder-every-saturday-at-9am': {
         'task': 'task_application.tasks.send_completed_tasks',
         'schedule': crontab(minute='0', hour='9', day_of_week='sat'),
     },
 }
+
+
 
