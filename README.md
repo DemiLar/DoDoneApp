@@ -1,6 +1,7 @@
 DoDone App
 
 Features :
+
 Add tasks
 
 Edit and delete tasks
@@ -18,6 +19,7 @@ Create and edit user profile
 Customize admin panel
 
 Technology stack :
+
 Python
 
 Django
